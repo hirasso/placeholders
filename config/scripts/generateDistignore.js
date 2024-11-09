@@ -111,7 +111,9 @@ function generateDistignore() {
    * If a line ends with " export-ignore", it removes that part and appends the rest to .distignore
    */
   const gitattributesContent = fs.readFileSync(".gitattributes", "utf8");
-  const gitattributesLines = gitattributesContent.split("\n");
+  const gitattributesLines = [
+    ...new Set(gitattributesContent.split("\n").map((line) => line.trim())),
+  ];
   const distignoreLines = gitattributesLines
     .filter((line) => line.endsWith(" export-ignore"))
     .map((line) => line.replace(" export-ignore", ""));
