@@ -125,11 +125,15 @@ function generateDistignore() {
     `${green}✔ ${distignoreFile} generated from .gitignore and .gitattributes.${reset}`,
   );
 
-  /** Read .distignore and filter out lines starting with excluded files/folders */
+  /** Read .distignore and comment out lines starting with excluded files/folders */
   const distignoreContent = fs.readFileSync(".distignore", "utf8");
   const filteredContent = distignoreContent
     .split("\n")
-    .filter((line) => !excludes.some((exclude) => line.startsWith(exclude)))
+    .map((line) => {
+      return excludes.some((exclude) => line.startsWith(exclude))
+        ? `# ${line} (excluded)`
+        : line;
+    })
     .join("\n");
 
   /** Write the filtered content back to .distignore */

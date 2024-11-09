@@ -19,6 +19,7 @@
 node_modules
 
 # Composer
+# vendor (excluded)
 
 # php-cs-fixer
 .php-cs-fixer.cache
@@ -49,6 +50,7 @@ placeholders
 .phpcsfixer.config.php
 .lintstagedrc.js
 .husky
+# vendor (excluded)
 pnpm-lock.yaml
 package.json
 jsconfig.json
