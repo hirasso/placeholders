@@ -8,9 +8,9 @@
 #------------------------------------------#
 
 
-#--------------------------------#
-# Generated from .gitattributes: #
-#--------------------------------#
+#------------------#
+# From .gitignore: #
+#------------------#
 
 # System
 .DS_Store
@@ -36,9 +36,9 @@ placeholders
 .phpunit.result.cache
 *.xml.dist.bak
 
-#--------------------------------#
-# Generated from .gitattributes: #
-#--------------------------------#
+#----------------------#
+# From .gitattributes: #
+#----------------------#
 
 .git
 .editorconfig
