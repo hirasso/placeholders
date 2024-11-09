@@ -40,7 +40,13 @@ const error = (message) => {
 };
 
 /**
- * Get a headline
+ * Get a headline. The result looks like this:
+ *
+ * #-----------------------------------#
+ * # I am a headline of various length #
+ * # I can be multiline                #
+ * #-----------------------------------#
+ *
  * @param {string[]} lines - The headline text
  * @return {string} - The resulting headline string
  */
