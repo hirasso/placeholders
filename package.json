@@ -11,6 +11,7 @@
     "version:patch": "node config/scripts/patchVersion.js $(basename \"$(pwd)\").php readme.txt composer.json",
     "distignore:generate": "node config/scripts/generateDistignore.js --exclude=vendor",
     "unignore:vendor": "node config/scripts/unignore.js vendor",
+    "dist:prepare": "node config/scripts/prepareDistFolder.js",
     "wp-env": "wp-env"
   },
   "devDependencies": {
