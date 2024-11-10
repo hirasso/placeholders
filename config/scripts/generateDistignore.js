@@ -1,12 +1,6 @@
 import fs from "fs";
 import { parseArgs } from "node:util";
-import { dd } from "./utils.js";
-
-const reset = "\x1b[0m";
-const red = "\x1b[31m";
-const green = "\x1b[32m";
-const yellow = "\x1b[33m";
-const blue = "\x1b[34m";
+import { dd, c, fileExists, error } from "./utils.js";
 
 const distignoreFile = ".distignore";
 
@@ -23,21 +17,6 @@ const excludes = args.values.exclude
   ? args.values.exclude.split(",").map((exclude) => exclude.trim())
   : [];
 
-/**
- * Checks if a file exists at the given path.
- * @param {string} path - The path to the file.
- * @returns {boolean} - Returns true if the file exists, false otherwise.
- */
-const fileExists = (path) => fs.existsSync(path);
-
-/**
- * print an error and exit
- * @param {string} message - The error message
- */
-const error = (message) => {
-  console.error(message);
-  process.exit(1);
-};
 
 /**
  * Get a headline. The result looks like this:
@@ -122,7 +101,7 @@ function generateDistignore() {
   fs.appendFileSync(distignoreFile, `${distignoreLines.join("\n")}\n`);
 
   console.log(
-    `${green}✔ ${distignoreFile} generated from .gitignore and .gitattributes.${reset}`,
+    `${c.green}✔ ${distignoreFile} generated from .gitignore and .gitattributes.${c.reset}`,
   );
 
   /** Read .distignore and comment out lines starting with excluded files/folders */
@@ -141,8 +120,8 @@ function generateDistignore() {
 
   if (excludes.length) {
     console.log(
-      `${green}✔ excluded:${reset}\n`,
-      excludes.map((exclude) => `${blue}  - ${exclude}${reset}`).join("\n"),
+      `${c.green}✔ excluded:${c.reset}\n`,
+      excludes.map((exclude) => `${c.blue}  - ${exclude}${c.reset}`).join("\n"),
     );
   }
 }

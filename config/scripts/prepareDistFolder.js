@@ -1,12 +1,20 @@
 import fs from 'fs';
 import path from 'path';
+import { c, error, fileExists } from './utils.js';
+
+const packageJsonPath = path.join(process.cwd(), "package.json");
+const { name: packageName } = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"));
+
+if (!fileExists(packageName)) {
+  error(`Folder ${c.red}${packageName}${c.reset} not found. Did you run 'composer scoped:create'?`);
+}
 
 // Define the files and directories to exclude
 const exclude = [
+  packageName,
   '.gitattributes',
   '.distignore',
   '.github',
-  'placeholders',
   'config',
   '.git',
   'package.json'
