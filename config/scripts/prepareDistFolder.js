@@ -1,6 +1,12 @@
 import fs from "fs";
 import path from "path";
-import { c, error, fileExists } from "./utils.js";
+import { c, dd, error, fileExists, getCurrentBranch } from "./utils.js";
+
+if (getCurrentBranch() !== "dist") {
+  error(
+    `${c.blue}prepareDistFolder${c.red} is destructive. It can only be run on the dist branch.${c.reset}`,
+  );
+}
 
 const packageJsonPath = path.join(process.cwd(), "package.json");
 const { name: packageName } = JSON.parse(

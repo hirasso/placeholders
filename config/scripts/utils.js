@@ -1,3 +1,4 @@
+import { execSync } from "node:child_process";
 import fs from "node:fs";
 
 /**
@@ -21,7 +22,7 @@ export const fileExists = (path) => fs.existsSync(path);
  * @param {string} message - The error message
  */
 export const error = (message) => {
-  console.error(message);
+  console.error(`\n${c.red}${message}${c.reset}`);
   process.exit(1);
 };
 
@@ -35,3 +36,10 @@ export const c = {
   yellow: "\x1b[33m",
   blue: "\x1b[34m",
 };
+
+/**
+ * Get the current branch
+ */
+export function getCurrentBranch() {
+  return execSync("git branch --show", { encoding: "utf8" }).trim();
+}
