@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { parseArgs } from "util";
+import { parseArgs } from "node:util";
 import { dd } from "./utils.js";
 
 // Read the version and name from package.json
