@@ -10,6 +10,7 @@
     "version:prepare": "pnpm changeset version && pnpm version:patch",
     "version:patch": "node config/scripts/patchVersion.js $(basename \"$(pwd)\").php readme.txt composer.json",
     "distignore:generate": "node config/scripts/generateDistignore.js --exclude=vendor",
+    "unignore:vendor": "node config/scripts/unignore.js vendor",
     "wp-env": "wp-env"
   },
   "devDependencies": {
