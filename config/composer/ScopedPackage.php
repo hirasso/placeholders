@@ -34,7 +34,7 @@ class ScopedPackage extends ComposerAction
         $cleanedUp = static::remove(
             "$rootDir/build/composer.json",
             "$rootDir/build/composer.lock",
-            "$rootDir/build/vendor/sniccowp/php-scoper-wordpress-excludes"
+            "$rootDir/build/vendor/sniccowp"
         );
 
         $io->write("<info>✔︎ Cleaned up scoped folder</info>");
