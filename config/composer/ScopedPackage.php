@@ -53,7 +53,8 @@ class ScopedPackage extends ComposerAction
         exec("cp -rf src build/src");
 
         foreach (static::patchDirectory($composerJSON, "$rootDir/build/src") as $file) {
-            $io->write("<info>✔︎ patched $file</info>");
+            $relativeFile = str_replace("$rootDir/", '', $file);
+            $io->write("<info>✔︎ Patched scoped namespaces in</info> $relativeFile");
         }
 
 
@@ -61,9 +62,9 @@ class ScopedPackage extends ComposerAction
          * Finally, rename scoped to whatever the root dir is called.
          * `my-plugin/scoped` will become `my-plugin/my-plugin`
          */
-        $newName = basename($rootDir);
-        static::renameFolder("$rootDir/build", $newName);
-        $io->write("<info>✔︎ Renamed scoped folder from 'build' top '$newName'</info>");
+        // $newName = basename($rootDir);
+        // static::renameFolder("$rootDir/build", $newName);
+        // $io->write("<info>✔︎ Renamed scoped folder from 'build' top '$newName'</info>");
     }
 
     /**
@@ -72,27 +73,33 @@ class ScopedPackage extends ComposerAction
     private static function createScopedComposerJSON(
         mixed $composerJSON,
         string $destination
-    ): array {
+    ): void {
 
-        $removeProperties = [
-            'scripts',
-            'require-dev',
-            'require',
-            'config',
-            'autoload-dev',
-            'autoload',
-            'post-install-cmd',
-            'scripts-descriptions',
+        $newComposerJSON = [];
+
+        $keepProperties = [
+            "name",
+            "version",
+            "description",
+            "license",
+            "type",
+            "authors",
         ];
 
-        foreach ($removeProperties as $key) {
-            unset($composerJSON[$key]);
+        foreach ($keepProperties as $key) {
+            if (isset($composerJSON[$key])) {
+                $newComposerJSON[$key] = $composerJSON[$key];
+            }
+        }
+
+        if ($composerJSON['require']['php'] ?? null) {
+            $newComposerJSON['require'] = [
+                'php' => $composerJSON['require']['php'],
+            ];
         }
 
         $jsonFile = new JsonFile($destination);
-        $jsonFile->write($composerJSON);
-
-        return $composerJSON;
+        $jsonFile->write($newComposerJSON);
     }
 
     /**
