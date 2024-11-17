@@ -11,6 +11,7 @@
     }
   ],
   "require": {
+    "php": "^8.2",
     "snicco/better-wp-cli": "^1.2",
     "sniccowp/php-scoper-wordpress-excludes": "dev-master",
     "srwiez/thumbhash": "dev-master"
